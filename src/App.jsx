@@ -67,16 +67,27 @@ function App() {
 				type="text"
 				label="Ad"
 				onChange={(x) => console.log(x)}
-				validation={{ minLength: 3}}
+				validation={{ minLength: 3 }}
 			/>
+			
 			<Input
 				id="lastName"
 				name="lastName"
-				type="number"
+				type="text"
 				label="Soyad"
 				onChange={(x) => console.log(x)}
-				validation={{ min: 10}}
+				validation={{ min: 0, maxLength: 20}}
+			/>
 
+			<Input
+				id="age"
+				name="age"
+				type="number"
+				label="Yaş"
+				onChange={(x) => console.log(x)}
+				validation={{ min: 0, max: 10}}
+				min={0}
+				max={100}
 			/>
 
 
@@ -91,7 +102,7 @@ function App() {
 			/>
 			<div className='error-text'>{name.error}</div> */}
 
-			<label htmlFor="email">Email</label>
+			{/* <label htmlFor="email">Email</label>
 			<input id="email" type="text" placeholder="E-poçt"/>
 
 			<label htmlFor="age">Yaş</label>
@@ -104,7 +115,7 @@ function App() {
 				value={age.value}
 				onChange={(event) => { setAge({ ...age, value: event.target.value }) }}
 			/>
-			<div className='error-text'>{age.error}</div>
+			<div className='error-text'>{age.error}</div> */}
 
 			<button>Göndər</button>
 		</form>

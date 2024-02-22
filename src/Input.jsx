@@ -12,12 +12,34 @@ function Input ({ label, onChange, validation, ...props }) {
         const val = event.target.value
         setValue(val)
         onChange(val)
+        validate(val)
+    }
 
-        setError(null)
-        if (validation.minLength) {
-            if (val.length < validation.minLength) {
+    const validate = (val) => {
+        if (props.type === 'text') {
+            if (validation.minLength && val.length < validation.minLength) {
                 setError(`${label} ${validation.minLength} simvoldan kiçik ola bilməz`)
+            } else if (validation.maxLength && val.length > validation.maxLength) {
+                setError(`${label} ${validation.maxLength} simvoldan böyük ola bilməz`)
+            } else {
+                setError(null)
             }
+        } else if (props.type === "number") {
+            if (validation.min !== undefined && val < validation.min) {
+                setError(`${label} ${validation.min}-dan kiçik ola bilməz`)
+            } else if (validation.max !== undefined && val > validation.max) {
+                setError(`${label} ${validation.max}-dan böyük ola bilməz`)
+            } else {
+                setError(null)
+            }
+        }
+    }
+    
+    let extraProps = {}
+    if (props.type === "number") {
+        extraProps = {
+            min: 0,
+            max: 100
         }
     }
 
@@ -30,6 +52,7 @@ function Input ({ label, onChange, validation, ...props }) {
                 value={value}
                 onChange={handleChange}
                 {...props}
+                {...extraProps}
             />
             <div className='error-text'>{error}</div>
         </>
